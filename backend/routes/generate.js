@@ -1,4 +1,3 @@
-// Generate route
 import express from 'express';
 import { generateTasks } from '../services/geminiService.js';
 import { saveSpec } from '../services/storageService.js';
@@ -9,7 +8,8 @@ router.post('/', async (req, res) => {
   try {
     const { goal, users, constraints, template } = req.body;
 
-    // Validate
+    console.log('📝 Request body:', { goal: goal?.substring(0, 50), users, template });
+
     if (!goal || goal.trim().length < 10) {
       return res.status(400).json({ error: 'Goal must be at least 10 characters' });
     }
@@ -25,15 +25,16 @@ router.post('/', async (req, res) => {
       template: template || 'General'
     };
 
-    // Generate with Gemini
-    console.log('Generating with Gemini...');
+    console.log('🤖 Calling Gemini...');
     const generated = await generateTasks(featureData);
+    console.log('✅ Got generated data');
 
-    // Save
+    console.log('💾 Saving spec...');
     const spec = saveSpec({
       feature: featureData,
       generated
     });
+    console.log('✅ Spec saved:', spec.id);
 
     res.json({
       success: true,
@@ -41,8 +42,16 @@ router.post('/', async (req, res) => {
     });
 
   } catch (error) {
-    console.error('Generate error:', error);
-    res.status(500).json({ error: error.message });
+    console.error('❌❌❌ GENERATE ERROR ❌❌❌');
+    console.error('Error name:', error.name);
+    console.error('Error message:', error.message);
+    console.error('Full error:', error);
+    console.error('Stack:', error.stack);
+    
+    res.status(500).json({ 
+      error: error.message,
+      details: error.stack 
+    });
   }
 });
 
