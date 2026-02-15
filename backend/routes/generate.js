@@ -43,10 +43,16 @@ router.post('/', async (req, res) => {
 
   } catch (error) {
     console.error('❌❌❌ GENERATE ERROR ❌❌❌');
-    console.error('Error name:', error.name);
     console.error('Error message:', error.message);
-    console.error('Full error:', error);
-    console.error('Stack:', error.stack);
+    
+    // Check for rate limit
+    if (error.message.includes('429') || error.message.includes('quota')) {
+      return res.status(429).json({ 
+        error: 'Rate limit exceeded',
+        message: 'Please wait 1 minute and try again. Gemini free tier: 20 requests/minute.',
+        retryAfter: 60
+      });
+    }
     
     res.status(500).json({ 
       error: error.message,
