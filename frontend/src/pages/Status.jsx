@@ -1,7 +1,7 @@
 
 
 import { useState, useEffect } from 'react';
-import { getHealthStatus } from '../services/api';
+import { getHealthStatus } from '../services/Api.js';
 
 function Status() {
   // State

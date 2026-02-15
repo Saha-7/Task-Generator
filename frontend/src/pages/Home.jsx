@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { generateTasks } from '../services/api';
+import { generateTasks } from '../services/Api.js';
 
 function Home() {
   const navigate = useNavigate();

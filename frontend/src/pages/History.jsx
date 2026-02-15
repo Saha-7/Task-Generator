@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { getAllSpecs, deleteSpec } from '../services/api';
+import { getAllSpecs, deleteSpec } from '../services/Api.js';
 
 function History() {
   const navigate = useNavigate();
