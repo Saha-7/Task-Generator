@@ -1,10 +1,7 @@
-// ============================================
-// STATUS PAGE
-// ============================================
-// Shows system health status with auto-refresh
 
-import React, { useState, useEffect } from 'react';
-import { getHealthStatus } from '../services/Api';
+
+import { useState, useEffect } from 'react';
+import { getHealthStatus } from '../services/api';
 
 function Status() {
   // State

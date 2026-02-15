@@ -1,9 +1,5 @@
-// ============================================
-// RESULT PAGE
-// ============================================
-// Shows generated tasks with edit and export capabilities
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 
 function Result() {
