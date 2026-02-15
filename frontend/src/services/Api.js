@@ -6,7 +6,7 @@
 
 // The base URL for our API
 // In development, this uses the proxy defined in package.json
-const API_BASE = '/api';
+const API_BASE = 'http://localhost:5000/api';
 
 /**
  * Generate tasks from feature idea
