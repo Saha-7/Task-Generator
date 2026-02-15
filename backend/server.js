@@ -5,7 +5,6 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import fs from 'fs';
 
-// ESM equivalent of __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -30,16 +29,39 @@ if (!fs.existsSync(dataDir)) {
   fs.mkdirSync(dataDir, { recursive: true });
 }
 
-// Initialize specs.json
 const specsFile = join(dataDir, 'specs.json');
 if (!fs.existsSync(specsFile)) {
   fs.writeFileSync(specsFile, JSON.stringify([]));
 }
 
-// Import routes (will create these next)
-import generateRoute from './routes/generate.js';
-import specsRoute from './routes/specs.js';
-import statusRoute from './routes/status.js';
+// Import routes with error handling
+console.log('📦 Loading routes...');
+
+let generateRoute, specsRoute, statusRoute;
+
+try {
+  const generateModule = await import('./routes/generate.js');
+  generateRoute = generateModule.default;
+  console.log('✅ generate route loaded');
+} catch (err) {
+  console.error('❌ Failed to load generate route:', err.message);
+}
+
+try {
+  const specsModule = await import('./routes/specs.js');
+  specsRoute = specsModule.default;
+  console.log('✅ specs route loaded');
+} catch (err) {
+  console.error('❌ Failed to load specs route:', err.message);
+}
+
+try {
+  const statusModule = await import('./routes/status.js');
+  statusRoute = statusModule.default;
+  console.log('✅ status route loaded');
+} catch (err) {
+  console.error('❌ Failed to load status route:', err.message);
+}
 
 // Root route
 app.get('/', (req, res) => {
@@ -63,10 +85,27 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Routes
-app.use('/api/generate', generateRoute);
-app.use('/api/specs', specsRoute);
-app.use('/api/status', statusRoute);
+// Register routes only if they loaded successfully
+if (generateRoute) {
+  app.use('/api/generate', generateRoute);
+  console.log('✅ /api/generate registered');
+} else {
+  console.log('⚠️ /api/generate NOT registered');
+}
+
+if (specsRoute) {
+  app.use('/api/specs', specsRoute);
+  console.log('✅ /api/specs registered');
+} else {
+  console.log('⚠️ /api/specs NOT registered');
+}
+
+if (statusRoute) {
+  app.use('/api/status', statusRoute);
+  console.log('✅ /api/status registered');
+} else {
+  console.log('⚠️ /api/status NOT registered');
+}
 
 // 404
 app.use((req, res) => {
