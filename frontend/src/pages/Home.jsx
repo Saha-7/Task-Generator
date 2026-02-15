@@ -1,9 +1,5 @@
-// ============================================
-// HOME PAGE
-// ============================================
-// Main page where users fill out the form and generate tasks
 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { generateTasks } from '../services/api';
 

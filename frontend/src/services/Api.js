@@ -1,8 +1,4 @@
-// ============================================
-// API SERVICE
-// ============================================
-// This service handles all API calls to the backend
-// It provides simple functions that components can use
+
 
 // The base URL for our API
 // In development, this uses the proxy defined in package.json
