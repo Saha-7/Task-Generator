@@ -4,7 +4,7 @@
 // Shows system health status with auto-refresh
 
 import React, { useState, useEffect } from 'react';
-import { getHealthStatus } from '../services/api';
+import { getHealthStatus } from '../services/Api';
 
 function Status() {
   // State
@@ -140,7 +140,7 @@ function Status() {
 
               {/* LLM API */}
               <StatusCard
-                title="Claude API"
+                title="Gemini API"
                 status={status.checks.llm?.status}
                 icon="🤖"
               >
