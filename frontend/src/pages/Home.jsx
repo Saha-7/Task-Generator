@@ -108,7 +108,7 @@ function Home() {
 
         {/* Main Form */}
         <div className="bg-white rounded-lg shadow-lg p-8">
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6 ">
             {/* Template Selection */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-3">
@@ -200,10 +200,11 @@ function Home() {
             )}
 
             {/* Submit Button */}
-            <button
+            <div className='flex justify-center'>
+              <button
               type="submit"
               disabled={loading}
-              className={`w-full py-3 px-6 rounded-lg font-medium text-white transition-all ${
+              className={`w-1/2 bg-blue-500 py-3 px-6 rounded-lg font-medium text-black transition-all ${
                 loading
                   ? 'bg-gray-400 cursor-not-allowed'
                   : 'bg-primary-600 hover:bg-primary-700 shadow-lg hover:shadow-xl'
@@ -221,6 +222,7 @@ function Home() {
                 '✨ Generate User Stories & Tasks'
               )}
             </button>
+            </div>
           </form>
         </div>
 
