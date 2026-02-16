@@ -65,8 +65,8 @@ npm install
 
 # GEMINI_API_KEY=your_key_here
 # PORT=5000
-# NODE_ENV=development
-# FRONTEND_URL=http://localhost:5173
+# NODE_ENV=
+# FRONTEND_URL=
 ```
 
 ### 4. Start Backend
@@ -99,18 +99,6 @@ npm install
 ```bash
 npm start
 ```
-
-Browser opens to: **http://localhost:3000**
-
-## ✅ Verify It Works
-
-1. Go to **http://localhost:3000/status**
-2. All should be green (healthy)
-3. Go back to home
-4. Fill the form and click "Generate"
-5. Wait 10-15 seconds
-6. See your generated tasks!
-
 
 
 
